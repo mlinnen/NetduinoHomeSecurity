@@ -9,28 +9,50 @@ namespace HomeSecurity.Device.ExternalDoor
     {
         private readonly IMqtt _mqttService;
         private readonly ILogger _logger;
-        private string _deviceName;
-        public ExternalDoorController(IMqtt mqttService, ILogger logger, string deviceName)
+        private string _deviceCode;
+        private string _houseCode;
+
+		#region ctor
+
+		public ExternalDoorController(IMqtt mqttService, ILogger logger,string houseCode, string deviceCode)
         {
             _logger = logger;
             _mqttService = mqttService;
-            _deviceName = deviceName;
+			_houseCode = houseCode;
+            _deviceCode = deviceCode;
         }
 
-        public void Start()
+		#endregion
+
+		#region Public Properties
+
+		public string Topic
+		{
+			get
+			{
+				return "/" + _houseCode + "/door/" + _deviceCode + "/";
+			}
+		}
+
+		#endregion
+
+		#region Public Methods
+		public void Start()
         {
-            if (ConnectToBroker())
-            {
-                if (Subscribe())
-                {
-
-                }
-            }
-
-            // TODO
+			if (ConnectToBroker()){
+				if (Subscribe()){
+					// TODO add the logic to handle the I/O
+				}
+				else
+					_logger.Error("Unable to subscribe to the Broker");
+			}
+			else
+				_logger.Error("Unable to connect to the Broker");
         }
+		#endregion
 
-        private bool ConnectToBroker()
+		#region Private methods
+		private bool ConnectToBroker()
         {
             bool success = false;
             try
@@ -58,7 +80,7 @@ namespace HomeSecurity.Device.ExternalDoor
 
             try
             {
-                Subscription subscription = new Subscription("/house/door/" + _deviceName + "/hello", QoS.BestEfforts);
+				Subscription subscription = new Subscription(Topic + "hello", QoS.BestEfforts);
                 messageId = _mqttService.Subscribe(subscription);
                 success = true;
             }
@@ -69,24 +91,26 @@ namespace HomeSecurity.Device.ExternalDoor
             return success;
         }
 
-
-
         private void ConnectionLost(object sender, EventArgs e)
         {
-            // TODO reset the netduino or reconnect
             _logger.Info("Connection Lost");
         }
 
         private bool PublishArrived(object sender, PublishArrivedArgs e)
         {
-            _logger.Debug("Msg Recvd: " + e.Topic + " " + e.Payload.ToString());
+			_logger.Info("Msg Recvd: " + e.Topic + " " + e.Payload.ToString());
 
-            if (e.Topic.Equals("/house/door/" + _deviceName + "/front/hello"))
+            if (e.Topic.Equals(Topic + "hello"))
             {
                 _logger.Info(e.Payload);
+				return true;
             }
 
+			// TODO test for more subscriptions arriving and execute on them
+
             return true;
-        }
-    }
+		}
+
+		#endregion
+	}
 }
