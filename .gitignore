@@ -1,6 +1,25 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
 obj
+*.csproj.user
+*ReSharper*
+*resharper*
+*.suo
+*.cache
+* Thumbs.db
+*.vspscc
+
+# other stuff
+*.bak
+*.cache
+*.log
+*.swp
+*.user
+_compareTemp
+_notes
+aspnet_client
+httpd.parse.errors
+
 
 # mstest test results
 TestResults
