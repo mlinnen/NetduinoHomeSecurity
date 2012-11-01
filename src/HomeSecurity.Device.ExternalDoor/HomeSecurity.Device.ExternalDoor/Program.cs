@@ -26,7 +26,7 @@ namespace HomeSecurity.Device.ExternalDoor
 		private static string _deviceSubnet = "255.255.255.0";
 
 		// MQTT Message Broker endpoint
-		private static string _mqttConnection = "tcp://168.62.49.240:1883";
+		private static string _mqttConnection = "tcp://168.62.188.28:1883";
 
 		private static ILogger _logger;
 
