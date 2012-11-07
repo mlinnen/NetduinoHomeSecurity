@@ -30,7 +30,7 @@ namespace HomeSecurity.Device.ExternalDoor
 		{
 			get
 			{
-				return "/" + _houseCode + "/door/" + _deviceCode + "/";
+				return "/" + _houseCode + "/externaldoor/" + _deviceCode + "/";
 			}
 		}
 
@@ -42,6 +42,9 @@ namespace HomeSecurity.Device.ExternalDoor
 			if (ConnectToBroker()){
 				if (Subscribe()){
 					// TODO add the logic to handle the I/O
+
+                    // Send out a ping topic with Hello World as the message and it should come back to this device as a pingresp
+                    _mqttService.Publish(new MqttParcel(Topic + "ping","Hello world",QoS.BestEfforts,false));
 				}
 				else
 					_logger.Error("Unable to subscribe to the Broker");
@@ -80,7 +83,7 @@ namespace HomeSecurity.Device.ExternalDoor
 
             try
             {
-				Subscription subscription = new Subscription(Topic + "hello", QoS.BestEfforts);
+				Subscription subscription = new Subscription(Topic + "pingresp", QoS.BestEfforts);
                 messageId = _mqttService.Subscribe(subscription);
                 success = true;
             }
@@ -100,7 +103,7 @@ namespace HomeSecurity.Device.ExternalDoor
         {
 			_logger.Info("Msg Recvd: " + e.Topic + " " + e.Payload.ToString());
 
-            if (e.Topic.Equals(Topic + "hello"))
+            if (e.Topic.Equals(Topic + "pingresp"))
             {
                 _logger.Info(e.Payload);
 				return true;
