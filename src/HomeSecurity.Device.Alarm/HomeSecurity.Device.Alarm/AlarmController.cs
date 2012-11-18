@@ -30,6 +30,7 @@ namespace HomeSecurity.Device.ExternalDoor
         private bool _bedroom1BurglarAlarmOn = false;
         private bool _bedroom2BurglarAlarmOn = false;
         private bool _firsFloorBurglarAlarmOn = false;
+        private static Timer _pingResponseTimer = null;
         private Timer _burglarAlarmTimer = null;
         private OutputPort _burglarAlarmOutput = new OutputPort(Pins.GPIO_PIN_D0, false);
         private OutputPort _masterBedroomWindowOutput = new OutputPort(Pins.GPIO_PIN_D1, false);
@@ -40,6 +41,7 @@ namespace HomeSecurity.Device.ExternalDoor
         private OutputPort _frontDoorOutput = new OutputPort(Pins.GPIO_PIN_D6, false);
         private OutputPort _backDoorOutput = new OutputPort(Pins.GPIO_PIN_D7, false);
         private OutputPort _sideDoorOutput = new OutputPort(Pins.GPIO_PIN_D8, false);
+        private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
 
 		#region ctor
 
@@ -52,6 +54,8 @@ namespace HomeSecurity.Device.ExternalDoor
 
             // Setup the timer to wait forever
             _burglarAlarmTimer = new Timer(new TimerCallback(OnTimer), this._burglarAlarmOutput, Timeout.Infinite, Timeout.Infinite);
+
+            _pingResponseTimer = new Timer(new TimerCallback(OnPingResponseTimer), this._pingResponseOutput, Timeout.Infinite, Timeout.Infinite);
         }
 
 		#endregion
@@ -159,6 +163,8 @@ namespace HomeSecurity.Device.ExternalDoor
             if (e.Topic.Equals(Topic + "pingresp"))
             {
                 _logger.Info(e.Payload);
+                _pingResponseOutput.Write(true);
+                _pingResponseTimer.Change(3000, 3000);
 				return true;
             }
 
@@ -304,6 +310,14 @@ namespace HomeSecurity.Device.ExternalDoor
             output.Write(!isOn);
         }
 
-		#endregion
+        private static void OnPingResponseTimer(object state)
+        {
+            _pingResponseTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            OutputPort output = (OutputPort)state;
+            bool isOn = output.Read();
+            output.Write(!isOn);
+        }
+        
+        #endregion
 	}
 }
