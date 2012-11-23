@@ -25,6 +25,8 @@ namespace HomeSecurity.Device.ExternalDoor
 		private AutoRepeatInputPort _motionCircuit = new AutoRepeatInputPort(Pins.GPIO_PIN_D7, Port.ResistorMode.PullUp, false);
 		private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
 		private static Timer _pingResponseTimer = null;
+		private static Timer _invalidCodeFlashLEDTimer = null;
+		private static int _currentFlashCount = 2;
 		private string _keyboardInput = "";
 
 		#region ctor
@@ -38,6 +40,9 @@ namespace HomeSecurity.Device.ExternalDoor
 
 			// Setup the timer that turns off the onboard led after a length of time
 			_pingResponseTimer = new Timer(new TimerCallback(OnPingResponseTimer), this._pingResponseOutput, Timeout.Infinite, Timeout.Infinite);
+
+			// Setup the timer that flashes the LED when the code is invalid
+			_invalidCodeFlashLEDTimer = new Timer(new TimerCallback(OnFlashLEDTimer), this._invalidCodeLED, Timeout.Infinite, Timeout.Infinite);
 
 			// Setup the interrupt handler to detect when the windows opened or closed
 			_windowCircuit.StateChanged += new AutoRepeatEventHandler(_windowCircuit_StateChanged);
@@ -191,11 +196,14 @@ namespace HomeSecurity.Device.ExternalDoor
 			{
 				if (e.Payload.ToString().Equals("true"))
 				{
-					// TODO do something
+					_invalidCodeFlashLEDTimer.Change(Timeout.Infinite, Timeout.Infinite);
+					_invalidCodeLED.Write(false);
 				}
 				else if (e.Payload.ToString().Equals("false"))
 				{
 					// Since the code was invalid we need to flash the LED on/off twice
+					_currentFlashCount = 4;
+					_invalidCodeFlashLEDTimer.Change(0, 1000);
 				}
 			}
 		}
@@ -206,11 +214,14 @@ namespace HomeSecurity.Device.ExternalDoor
 			{
 				if (e.Payload.ToString().Equals("true"))
 				{
-					// TODO do something
+					_invalidCodeFlashLEDTimer.Change(Timeout.Infinite, Timeout.Infinite);
+					_invalidCodeLED.Write(false);
 				}
 				else if (e.Payload.ToString().Equals("false"))
 				{
-					// TODO do something
+					// Since the alarm state was invalid we need to flash the LED on/off twice
+					_currentFlashCount = 4;
+					_invalidCodeFlashLEDTimer.Change(0, 1000);
 				}
 			}
 		}
@@ -218,6 +229,18 @@ namespace HomeSecurity.Device.ExternalDoor
 		private static void OnPingResponseTimer(object state)
 		{
 			_pingResponseTimer.Change(Timeout.Infinite, Timeout.Infinite);
+			OutputPort output = (OutputPort)state;
+			bool isOn = output.Read();
+			output.Write(!isOn);
+		}
+
+		private static void OnFlashLEDTimer(object state)
+		{
+			_currentFlashCount--;
+			if (_currentFlashCount == 0)
+			{
+				_invalidCodeFlashLEDTimer.Change(Timeout.Infinite, Timeout.Infinite);
+			}
 			OutputPort output = (OutputPort)state;
 			bool isOn = output.Read();
 			output.Write(!isOn);
