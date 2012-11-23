@@ -51,6 +51,9 @@
       <HintPath>..\..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.NetduinoPlus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Toolbox.NETMF.Hardware">
+      <HintPath>..\..\lib\NetMFToolbox\4.2\Toolbox.NETMF.Hardware.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Device.Core\Device.Core_4.2.csproj">

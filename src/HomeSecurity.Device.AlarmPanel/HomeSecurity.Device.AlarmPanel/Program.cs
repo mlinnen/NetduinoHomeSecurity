@@ -20,6 +20,8 @@ namespace HomeSecurity.Device.ExternalDoor
 		private static string _mqttDeviceId = "mjl";
 		// Change the IP of your device (this would be provided to you at the event)
 		private static string _deviceIP = "192.168.0.5";
+		// Change the location code of the device (firstfloor, masterbedroom, bedroom1 or bedroom2)
+		private static string _locationCode = "firstfloor";
 		// END******* 
 
 		// Networking
@@ -43,7 +45,7 @@ namespace HomeSecurity.Device.ExternalDoor
 			IMqtt client = MqttClientFactory.CreateClient(_mqttConnection, _mqttDeviceId, _logger);
 
 			// Begin doing some sucurty related stuff
-			AlarmPanelController controller = new AlarmPanelController(client, _logger,"house1","firstfloor");
+			AlarmPanelController controller = new AlarmPanelController(client, _logger, "house1", _locationCode);
 			controller.Start();
 
 			Thread.Sleep(Timeout.Infinite);
