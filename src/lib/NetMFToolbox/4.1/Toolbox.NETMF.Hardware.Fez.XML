@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Toolbox.NETMF.Hardware.Fez</name>
+    </assembly>
+    <members>
+        <member name="T:Toolbox.NETMF.Hardware.Fez">
+            <summary>Collection of Fez wrappers</summary>
+            <remarks>I made this as a class so people actually have to type Fez.PWM. This, to avoid conflicts with any other PWM class.</remarks>
+            <summary>Collection of Fez wrappers</summary>
+            <remarks>I made this as a class so people actually have to type Fez.PWM. This, to avoid conflicts with any other PWM class.</remarks>
+        </member>
+        <member name="T:Toolbox.NETMF.Hardware.Fez.PWM">
+            <summary>
+            Fez PWM Wrapper
+            </summary>
+        </member>
+        <member name="F:Toolbox.NETMF.Hardware.Fez.PWM._Port">
+            <summary>Reference to the PWM port</summary>
+        </member>
+        <member name="F:Toolbox.NETMF.Hardware.Fez.PWM._period_ns">
+            <summary>The time for each timeframe in nanoseconds</summary>
+        </member>
+        <member name="F:Toolbox.NETMF.Hardware.Fez.PWM._duration_ns">
+            <summary>The amount of nanoseconds the pulse must be high</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.PWM.StartPulse">
+            <summary>Starts the signal</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.PWM.Dispose">
+            <summary>Disposes the PWM object</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.PWM.StopPulse">
+            <summary>Stops the signal</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.PWM.#ctor(GHIElectronics.NETMF.Hardware.PWM.Pin)">
+            <summary>Defines a Fez PWM pin</summary>
+            <param name="Pin">The Fez pin</param>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.PWM.SetPulse(System.UInt32,System.UInt32)">
+            <summary>Sets the signal in pulses</summary>
+            <param name="period_ns">The time for each timeframe in nanoseconds</param>
+            <param name="duration_ns">The amount of nanoseconds the pulse must be high</param>
+        </member>
+        <member name="T:Toolbox.NETMF.Hardware.Fez.ADC">
+            <summary>
+            Fez ADC Wrapper
+            </summary>
+        </member>
+        <member name="F:Toolbox.NETMF.Hardware.Fez.ADC._port">
+            <summary>Reference to the ADC port</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.ADC.#ctor(GHIElectronics.NETMF.Hardware.AnalogIn.Pin)">
+            <summary>Defines a Fez ADC pin</summary>
+            <param name="Pin">The Fez pin</param>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.ADC.AnalogRead">
+            <summary>Reads out a value between 0 and 1</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Fez.ADC.Dispose">
+            <summary>Disposes the ADC object</summary>
+        </member>
+    </members>
+</doc>
