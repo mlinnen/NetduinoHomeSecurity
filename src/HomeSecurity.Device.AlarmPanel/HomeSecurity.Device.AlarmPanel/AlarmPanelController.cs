@@ -22,6 +22,7 @@ namespace HomeSecurity.Device.ExternalDoor
 		private AutoRepeatInputPort _keyboard0Key = new AutoRepeatInputPort(Pins.GPIO_PIN_D4, Port.ResistorMode.PullUp, false);
 		private AutoRepeatInputPort _keyboard1Key = new AutoRepeatInputPort(Pins.GPIO_PIN_D5, Port.ResistorMode.PullUp, false);
 		private AutoRepeatInputPort _keyboardEnterKey = new AutoRepeatInputPort(Pins.GPIO_PIN_D6, Port.ResistorMode.PullUp, false);
+		private AutoRepeatInputPort _motionCircuit = new AutoRepeatInputPort(Pins.GPIO_PIN_D7, Port.ResistorMode.PullUp, false);
 		private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
 		private static Timer _pingResponseTimer = null;
 		private string _keyboardInput = "";
@@ -40,6 +41,9 @@ namespace HomeSecurity.Device.ExternalDoor
 
 			// Setup the interrupt handler to detect when the windows opened or closed
 			_windowCircuit.StateChanged += new AutoRepeatEventHandler(_windowCircuit_StateChanged);
+
+			// Setup the interrupt handler to detect when the motion detector opened or closed
+			_motionCircuit.StateChanged += new AutoRepeatEventHandler(_motionCircuit_StateChanged);
 
 			// Setup the interrupt handlers that detect when a keypad key is depressed
 			_keyboard0Key.StateChanged += new AutoRepeatEventHandler(_keyboard0Key_StateChanged);
@@ -191,7 +195,7 @@ namespace HomeSecurity.Device.ExternalDoor
 				}
 				else if (e.Payload.ToString().Equals("false"))
 				{
-					// TODO do something
+					// Since the code was invalid we need to flash the LED on/off twice
 				}
 			}
 		}
@@ -281,6 +285,24 @@ namespace HomeSecurity.Device.ExternalDoor
 					break;
 			}
 		}
+
+		void _motionCircuit_StateChanged(object sender, AutoRepeatEventArgs e)
+		{
+			switch (e.State)
+			{
+				case AutoRepeatInputPort.AutoRepeatState.Press:
+					// The circuit opened meaning a motion detector fired
+					_logger.Debug("Motion Circuit Opened");
+					_mqttService.Publish(new MqttParcel(Topic + "motion", "opened", QoS.BestEfforts, false));
+					break;
+				case AutoRepeatInputPort.AutoRepeatState.Release:
+					// The circuit closed meaning all motion detectors are not firing
+					_logger.Debug("Motion Circuit Closed");
+					_mqttService.Publish(new MqttParcel(Topic + "motion", "closed", QoS.BestEfforts, false));
+					break;
+			}
+		}
+
 		#endregion
 	}
 }
