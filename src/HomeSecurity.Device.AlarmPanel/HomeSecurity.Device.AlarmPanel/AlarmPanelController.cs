@@ -23,7 +23,9 @@ namespace HomeSecurity.Device.ExternalDoor
 		private AutoRepeatInputPort _keyboard1Key = new AutoRepeatInputPort(Pins.GPIO_PIN_D5, Port.ResistorMode.PullUp, false);
 		private AutoRepeatInputPort _keyboardEnterKey = new AutoRepeatInputPort(Pins.GPIO_PIN_D6, Port.ResistorMode.PullUp, false);
 		private AutoRepeatInputPort _motionCircuit = new AutoRepeatInputPort(Pins.GPIO_PIN_D7, Port.ResistorMode.PullUp, false);
-		private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
+        private AutoRepeatInputPort _sleepMode = new AutoRepeatInputPort(Pins.GPIO_PIN_D8, Port.ResistorMode.PullUp, false);
+        private AutoRepeatInputPort _awayMode = new AutoRepeatInputPort(Pins.GPIO_PIN_D9, Port.ResistorMode.PullUp, false);
+        private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
 		private static Timer _pingResponseTimer = null;
 		private static Timer _invalidCodeFlashLEDTimer = null;
 		private static int _currentFlashCount = 2;
@@ -54,7 +56,13 @@ namespace HomeSecurity.Device.ExternalDoor
 			_keyboard0Key.StateChanged += new AutoRepeatEventHandler(_keyboard0Key_StateChanged);
 			_keyboard1Key.StateChanged += new AutoRepeatEventHandler(_keyboard1Key_StateChanged);
 			_keyboardEnterKey.StateChanged += new AutoRepeatEventHandler(_keyboardEnterKey_StateChanged);
-		}
+
+            // Setup the interupt handlers that detect when the sleep button is pressed
+            _sleepMode.StateChanged += new AutoRepeatEventHandler(_sleepMode_StateChanged);
+
+            // Setup the interupt handlers that detect when the alarm button is pressed
+            _awayMode.StateChanged += new AutoRepeatEventHandler(_awayMode_StateChanged);
+        }
 
 		#endregion
 
@@ -325,6 +333,31 @@ namespace HomeSecurity.Device.ExternalDoor
 					break;
 			}
 		}
+
+        void _awayMode_StateChanged(object sender, AutoRepeatEventArgs e)
+        {
+            switch (e.State)
+            {
+                case AutoRepeatInputPort.AutoRepeatState.Press:
+                    // The away security mode button was pressed
+                    _logger.Debug("Away button pressed");
+                    _mqttService.Publish(new MqttParcel(Topic + "alarmstate", "away", QoS.BestEfforts, false));
+                    break;
+            }
+        }
+
+        void _sleepMode_StateChanged(object sender, AutoRepeatEventArgs e)
+        {
+            switch (e.State)
+            {
+                case AutoRepeatInputPort.AutoRepeatState.Press:
+                    // The sleep security mode button was pressed
+                    _logger.Debug("Sleep button pressed");
+                    _mqttService.Publish(new MqttParcel(Topic + "alarmstate", "sleep", QoS.BestEfforts, false));
+                    break;
+            }
+        }
+
 
 		#endregion
 	}
