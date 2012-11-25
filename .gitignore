@@ -6,7 +6,7 @@ obj
 *resharper*
 *.suo
 *.cache
-* Thumbs.db
+Thumbs.db
 *.vspscc
 
 # other stuff
