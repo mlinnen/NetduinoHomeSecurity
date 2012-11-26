@@ -75,9 +75,10 @@ namespace HomeSecurity.Device.Alarm
 		#region Public Methods
 		public void Start()
         {
-			if (ConnectToBroker()){
-				if (Subscribe()){
-
+			if (ConnectToBroker())
+            {
+				if (Subscribe())
+                {
                     // Send out a ping topic with Hello World as the message and it should come back to this device as a pingresp
                     _mqttService.Publish(new MqttParcel(Topic + "ping","Hello world",QoS.BestEfforts,false));
 				}
@@ -162,7 +163,6 @@ namespace HomeSecurity.Device.Alarm
 
             if (e.Topic.Equals(Topic + "pingresp"))
             {
-                _logger.Info(e.Payload);
                 _pingResponseOutput.Write(true);
                 _pingResponseTimer.Change(3000, 3000);
 				return true;

@@ -2,6 +2,9 @@ using System;
 using Microsoft.SPOT;
 using MQTT;
 using Device.Core;
+using System.Threading;
+using Microsoft.SPOT.Hardware;
+using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace HomeSecurity.Device.ExternalDoor
 {
@@ -11,6 +14,8 @@ namespace HomeSecurity.Device.ExternalDoor
         private readonly ILogger _logger;
         private string _deviceCode;
         private string _houseCode;
+        private static Timer _pingResponseTimer = null;
+        private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
 
 		#region ctor
 
@@ -20,6 +25,10 @@ namespace HomeSecurity.Device.ExternalDoor
             _mqttService = mqttService;
 			_houseCode = houseCode;
             _deviceCode = deviceCode;
+
+            // Setup the timer to wait forever
+            _pingResponseTimer = new Timer(new TimerCallback(OnPingResponseTimer), this._pingResponseOutput, Timeout.Infinite, Timeout.Infinite);
+
         }
 
 		#endregion
@@ -39,10 +48,10 @@ namespace HomeSecurity.Device.ExternalDoor
 		#region Public Methods
 		public void Start()
         {
-			if (ConnectToBroker()){
-				if (Subscribe()){
-					// TODO add the logic to handle the I/O
-
+			if (ConnectToBroker())
+            {
+				if (Subscribe())
+                {
                     // Send out a ping topic with Hello World as the message and it should come back to this device as a pingresp
                     _mqttService.Publish(new MqttParcel(Topic + "ping","Hello world",QoS.BestEfforts,false));
 				}
@@ -105,14 +114,21 @@ namespace HomeSecurity.Device.ExternalDoor
 
             if (e.Topic.Equals(Topic + "pingresp"))
             {
-                _logger.Info(e.Payload);
-				return true;
+                _pingResponseOutput.Write(true);
+                _pingResponseTimer.Change(3000, 3000);
+                return true;
             }
-
-			// TODO test for more subscriptions arriving and execute on them
 
             return true;
 		}
+
+        private static void OnPingResponseTimer(object state)
+        {
+            _pingResponseTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            OutputPort output = (OutputPort)state;
+            bool isOn = output.Read();
+            output.Write(!isOn);
+        }
 
 		#endregion
 	}
