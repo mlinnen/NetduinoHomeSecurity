@@ -6,7 +6,7 @@ using Microsoft.SPOT.Hardware;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
 
-namespace HomeSecurity.Device.ExternalDoor
+namespace HomeSecurity.Device.Alarm
 {
     public class AlarmController
     {

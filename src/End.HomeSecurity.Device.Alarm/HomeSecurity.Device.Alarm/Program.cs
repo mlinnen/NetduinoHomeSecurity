@@ -9,7 +9,7 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using Device.Core;
 using MQTT;
 
-namespace HomeSecurity.Device.ExternalDoor
+namespace HomeSecurity.Device.Alarm
 {
 	public class Program
 	{
