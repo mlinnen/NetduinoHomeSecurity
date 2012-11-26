@@ -118,7 +118,7 @@ namespace HomeSecurity.Device.ExternalDoor
 
             try
             {
-                Subscription subscription = null; ;
+                Subscription subscription = null;
                 subscription = new Subscription(Topic + "pingresp", QoS.BestEfforts);
                 messageId = _mqttService.Subscribe(subscription);
 
