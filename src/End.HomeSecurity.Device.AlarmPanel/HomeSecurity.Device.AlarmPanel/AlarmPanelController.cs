@@ -57,10 +57,10 @@ namespace HomeSecurity.Device.ExternalDoor
 			_keyboard1Key.StateChanged += new AutoRepeatEventHandler(_keyboard1Key_StateChanged);
 			_keyboardEnterKey.StateChanged += new AutoRepeatEventHandler(_keyboardEnterKey_StateChanged);
 
-            // Setup the interupt handlers that detect when the sleep button is pressed
+            // Setup the interrupt handlers that detect when the sleep button is pressed
             _sleepMode.StateChanged += new AutoRepeatEventHandler(_sleepMode_StateChanged);
 
-            // Setup the interupt handlers that detect when the alarm button is pressed
+            // Setup the interrupt handlers that detect when the alarm button is pressed
             _awayMode.StateChanged += new AutoRepeatEventHandler(_awayMode_StateChanged);
         }
 
