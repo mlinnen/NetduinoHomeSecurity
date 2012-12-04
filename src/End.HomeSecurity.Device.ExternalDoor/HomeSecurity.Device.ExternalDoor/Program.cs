@@ -15,11 +15,13 @@ namespace HomeSecurity.Device.ExternalDoor
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
 		// Change the following line to be your IP of your Netduino Device
-		private static string _deviceGateway = "192.168.0.1";
+		//private static string _deviceGateway = "192.168.20.1";
+        private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
-		private static string _mqttDeviceId = "mjl";
+		private static string _mqttDeviceId = "djt";
 		// Change the IP of your device (this would be provided to you at the event)
-		private static string _deviceIP = "192.168.0.2";
+		//private static string _deviceIP = "192.168.20.129";
+        private static string _deviceIP = "192.168.1.129";
 		// END******* 
 
 		// Networking
@@ -42,7 +44,7 @@ namespace HomeSecurity.Device.ExternalDoor
 			// Begin Creating MQTT client
 			IMqtt client = MqttClientFactory.CreateClient(_mqttConnection, _mqttDeviceId, _logger);
 
-			// Begin doing some sucurty related stuff
+			// Begin doing some security related stuff
 			ExternalDoorController controller = new ExternalDoorController(client, _logger,"house1","front");
 			controller.Start();
 
