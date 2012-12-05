@@ -40,6 +40,9 @@ namespace HomeSecurity.Device.ExternalDoor
 			// Setup the timer to wait forever
 			_pingResponseTimer = new Timer(new TimerCallback(OnPingResponseTimer), this._pingResponseOutput, Timeout.Infinite, Timeout.Infinite);
 
+            // Setup the timer that flashes the LED when the code is invalid
+            _invalidCodeFlashLEDTimer = new Timer(new TimerCallback(OnFlashLEDTimer), this._invalidCodeLED, Timeout.Infinite, Timeout.Infinite);
+
             // Setup the interrupt handlers that detect when a door is opened or closed
             _door.StateChanged += new AutoRepeatEventHandler(_door_StateChanged);
             
@@ -156,9 +159,9 @@ namespace HomeSecurity.Device.ExternalDoor
 
         public void CheckForLockUnlockMessages(PublishArrivedArgs e)
         {
-            if (e.Topic.Equals(Topic + "lock"))
+            if (e.Topic.Equals(Topic + "setlock"))
             {
-                if (e.Payload.ToString().Equals("lock"))
+                if (e.Payload.ToString().Equals("locked") || e.Payload.ToString().Equals("lock"))
                 {
                     _doorLockedLED.Write(true);
                     _mqttService.Publish(new MqttParcel(Topic + "lock", "locked", QoS.BestEfforts, false));
@@ -196,6 +199,18 @@ namespace HomeSecurity.Device.ExternalDoor
 			bool isOn = output.Read();
 			output.Write(!isOn);
 		}
+
+        private static void OnFlashLEDTimer(object state)
+        {
+            _currentFlashCount--;
+            if (_currentFlashCount == 0)
+            {
+                _invalidCodeFlashLEDTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            }
+            OutputPort output = (OutputPort)state;
+            bool isOn = output.Read();
+            output.Write(!isOn);
+        }
 
         void _door_StateChanged(object sender, AutoRepeatEventArgs e)
         {

@@ -16,19 +16,19 @@ namespace HomeSecurity.Device.ExternalDoor
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
 		// Change the following line to be your IP of your Netduino Device
 		//private static string _deviceGateway = "192.168.20.1";
-        private static string _deviceGateway = "192.168.1.1";
+		private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "djt";
 		// Change the IP of your device (this would be provided to you at the event)
 		//private static string _deviceIP = "192.168.20.129";
-        private static string _deviceIP = "192.168.1.129";
+		private static string _deviceIP = "192.168.1.129";
 		// END******* 
 
 		// Networking
 		private static string _deviceSubnet = "255.255.255.0";
 
 		// MQTT Message Broker endpoint
-        private static string _mqttConnection = "tcp://168.62.48.21:1883";
+		private static string _mqttConnection = "tcp://168.62.48.21:1883";
 
 		private static ILogger _logger;
 
