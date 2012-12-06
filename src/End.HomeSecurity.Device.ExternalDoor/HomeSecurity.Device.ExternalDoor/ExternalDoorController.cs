@@ -161,7 +161,7 @@ namespace HomeSecurity.Device.ExternalDoor
         {
             if (e.Topic.Equals(Topic + "setlock"))
             {
-                if (e.Payload.ToString().Equals("locked") || e.Payload.ToString().Equals("lock"))
+                if (e.Payload.ToString().Equals("lock"))
                 {
                     _doorLockedLED.Write(true);
                     _mqttService.Publish(new MqttParcel(Topic + "lock", "locked", QoS.BestEfforts, false));
