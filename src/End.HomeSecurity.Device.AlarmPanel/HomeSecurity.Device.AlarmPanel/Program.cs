@@ -9,17 +9,17 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using Device.Core;
 using MQTT;
 
-namespace HomeSecurity.Device.ExternalDoor
+namespace HomeSecurity.Device.AlarmPanel
 {
 	public class Program
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
 		// Change the following line to be your IP of your Netduino Device
-		private static string _deviceGateway = "192.168.0.1";
+		private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
-		private static string _mqttDeviceId = "mjl";
+		private static string _mqttDeviceId = "mjl3";
 		// Change the IP of your device (this would be provided to you at the event)
-		private static string _deviceIP = "192.168.0.5";
+		private static string _deviceIP = "192.168.1.8";
 		// Change the location code of the device (firstfloor, masterbedroom, bedroom1 or bedroom2)
 		private static string _locationCode = "firstfloor";
 		// END******* 

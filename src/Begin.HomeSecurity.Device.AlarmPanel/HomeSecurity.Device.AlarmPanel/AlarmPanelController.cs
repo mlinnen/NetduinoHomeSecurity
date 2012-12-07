@@ -7,7 +7,7 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
 using Toolbox.NETMF.Hardware;
 
-namespace HomeSecurity.Device.ExternalDoor
+namespace HomeSecurity.Device.AlarmPanel
 {
     public class AlarmPanelController
     {

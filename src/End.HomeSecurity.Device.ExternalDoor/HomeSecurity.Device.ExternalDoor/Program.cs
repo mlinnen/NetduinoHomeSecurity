@@ -21,7 +21,7 @@ namespace HomeSecurity.Device.ExternalDoor
 		private static string _mqttDeviceId = "djt";
 		// Change the IP of your device (this would be provided to you at the event)
 		//private static string _deviceIP = "192.168.20.129";
-		private static string _deviceIP = "192.168.1.129";
+		private static string _deviceIP = "192.168.1.8";
 		// END******* 
 
 		// Networking
