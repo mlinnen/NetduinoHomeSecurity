@@ -15,6 +15,9 @@ namespace HomeSecurity.Device.DoorBell
         private string _locationCode;
         private string _houseCode;
         private static Timer _pingResponseTimer = null;
+        private static Timer _doorbellFrontTimer = null;
+        private static Timer _doorbellBackTimer = null;
+        private static Timer _doorbellSideTimer = null;
         private OutputPort _pingResponseOutput = new OutputPort(Pins.ONBOARD_LED, false);
         private OutputPort _doorbellFrontOutput = new OutputPort(Pins.GPIO_PIN_D0, false);
         private OutputPort _doorbellBackOutput = new OutputPort(Pins.GPIO_PIN_D1, false);
@@ -34,6 +37,9 @@ namespace HomeSecurity.Device.DoorBell
 
             // Setup the timer to wait forever
             _pingResponseTimer = new Timer(new TimerCallback(OnPingResponseTimer), this._pingResponseOutput, Timeout.Infinite, Timeout.Infinite);
+            _doorbellFrontTimer = new Timer(new TimerCallback(OnDoorbellFrontTimer), this._doorbellFrontOutput, Timeout.Infinite, Timeout.Infinite);
+            _doorbellBackTimer = new Timer(new TimerCallback(OnDoorbellBackTimer), this._doorbellBackOutput, Timeout.Infinite, Timeout.Infinite);
+            _doorbellSideTimer = new Timer(new TimerCallback(OnDoorbellSideTimer), this._doorbellSideOutput, Timeout.Infinite, Timeout.Infinite);
 
         }
 
@@ -132,6 +138,8 @@ namespace HomeSecurity.Device.DoorBell
                 return true;
             }
 
+            CheckForDoorbellMessages(e);
+
             return true;
 		}
 
@@ -139,17 +147,23 @@ namespace HomeSecurity.Device.DoorBell
         {
             if (e.Topic.Equals("/" + _houseCode + _frontDoorbellTopic))
             {
-                // TODO set the doorbell indicator on for 3 seconds
+                // Set the doorbell indicator on for 3 seconds
+                _doorbellFrontOutput.Write(true);
+                _doorbellFrontTimer.Change(3000, 3000);
             }
 
             if (e.Topic.Equals("/" + _houseCode + _backDoorbellTopic))
             {
-                // TODO set the doorbell indicator on for 3 seconds
+                // Set the doorbell indicator on for 3 seconds
+                _doorbellBackOutput.Write(true);
+                _doorbellBackTimer.Change(3000, 3000);
             }
 
             if (e.Topic.Equals("/" + _houseCode + _sideDoorbellTopic))
             {
-                // TODO set the doorbell indicator on for 3 seconds
+                // Set the doorbell indicator on for 3 seconds
+                _doorbellSideOutput.Write(true);
+                _doorbellSideTimer.Change(3000, 3000);
             }
         }
 
@@ -161,6 +175,26 @@ namespace HomeSecurity.Device.DoorBell
             output.Write(!isOn);
         }
 
+        private static void OnDoorbellFrontTimer(object state)
+        {
+            _doorbellFrontTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            OutputPort output = (OutputPort)state;
+            output.Write(false);
+        }
+
+        private static void OnDoorbellBackTimer(object state)
+        {
+            _doorbellBackTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            OutputPort output = (OutputPort)state;
+            output.Write(false);
+        }
+
+        private static void OnDoorbellSideTimer(object state)
+        {
+            _doorbellSideTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            OutputPort output = (OutputPort)state;
+            output.Write(false);
+        }
         #endregion
 	}
 }
