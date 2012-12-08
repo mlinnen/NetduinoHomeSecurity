@@ -19,7 +19,7 @@ namespace HomeSecurity.Device.DoorBell
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "rab";
 		// Change the IP of your device (this would be provided to you at the event)
-		private static string _deviceIP = "192.168.0.3";
+		private static string _deviceIP = "192.168.0.11";
         // Change the location code of the device (firstfloor, masterbedroom, bedroom1 or bedroom2)
         private static string _locationCode = "firstfloor";
         // END******* 
