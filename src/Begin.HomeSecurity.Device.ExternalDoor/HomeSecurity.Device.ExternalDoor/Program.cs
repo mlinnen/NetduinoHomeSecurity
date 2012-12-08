@@ -36,7 +36,10 @@ namespace HomeSecurity.Device.ExternalDoor
 			_logger = new ConsoleLogger();
 			_logger.CurrentLogLevel = LogLevel.Debug;
 
-			// Begin Initializing network
+            // Delay 5 seconds to give the board a chance to be interupted by the IDE
+            Thread.Sleep(5000);
+
+            // Begin Initializing network
 			Network.InitStaticNetwork(_deviceIP, _deviceSubnet, _deviceGateway);
 
 			// Begin Creating MQTT client
