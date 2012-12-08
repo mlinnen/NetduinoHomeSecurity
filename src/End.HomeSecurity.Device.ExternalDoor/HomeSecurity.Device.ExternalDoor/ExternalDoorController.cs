@@ -120,7 +120,7 @@ namespace HomeSecurity.Device.ExternalDoor
 				messageId = _mqttService.Subscribe(subscription);
 				success = true;
 
-                subscription = new Subscription(Topic + "lock", QoS.BestEfforts);
+                subscription = new Subscription(Topic + "setlock", QoS.BestEfforts);
                 messageId = _mqttService.Subscribe(subscription);
 
                 subscription = new Subscription(Topic + "codevalid", QoS.BestEfforts);
