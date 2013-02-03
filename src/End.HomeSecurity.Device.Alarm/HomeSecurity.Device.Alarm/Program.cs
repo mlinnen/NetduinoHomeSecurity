@@ -15,11 +15,11 @@ namespace HomeSecurity.Device.Alarm
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
 		// Change the following line to be your IP of your Netduino Device
-		private static string _deviceGateway = "192.168.0.1";
+		private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "mjl70";
 		// Change the IP of your device (this would be provided to you at the event)
-		private static string _deviceIP = "192.168.0.2";
+		private static string _deviceIP = "192.168.1.2";
 		// END******* 
 
 		// Networking
