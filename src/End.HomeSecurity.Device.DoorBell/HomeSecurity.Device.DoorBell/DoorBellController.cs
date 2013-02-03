@@ -60,9 +60,11 @@ namespace HomeSecurity.Device.DoorBell
 		#region Public Methods
 		public void Start()
         {
-			if (ConnectToBroker())
+            _logger.Debug("Attempting to connect to Broker");
+            if (ConnectToBroker())
             {
-				if (Subscribe())
+                _logger.Debug("Attempting to subscribe to Broker");
+                if (Subscribe())
                 {
                     // Send out a ping topic with Hello World as the message and it should come back to this device as a pingresp
                     _mqttService.Publish(new MqttParcel(Topic + "ping", "Hello world", QoS.BestEfforts, false));

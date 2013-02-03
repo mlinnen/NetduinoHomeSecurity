@@ -81,8 +81,12 @@ namespace HomeSecurity.Device.AlarmPanel
 		#region Public Methods
 		public void Start()
         {
-			if (ConnectToBroker()){
-				if (Subscribe()){
+            _logger.Debug("Attempting to connect to Broker");
+            if (ConnectToBroker())
+            {
+                _logger.Debug("Attempting to subscribe to Broker");
+                if (Subscribe())
+                {
 					// TODO add the logic to handle the I/O
 
                     // Send out a ping topic with Hello World as the message and it should come back to this device as a pingresp
