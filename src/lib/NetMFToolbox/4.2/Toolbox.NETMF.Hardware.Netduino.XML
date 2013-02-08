@@ -9,6 +9,8 @@
             <remarks>I made this as a class so people actually have to type Netduino.PWM. This, to avoid conflicts with any other PWM class.</remarks>
             <summary>Collection of Netduino wrappers</summary>
             <remarks>I made this as a class so people actually have to type Netduino.PWM. This, to avoid conflicts with any other PWM class.</remarks>
+            <summary>Collection of Netduino wrappers</summary>
+            <remarks>I made this as a class so people actually have to type Netduino.PWM. This, to avoid conflicts with any other PWM class.</remarks>
         </member>
         <member name="T:Toolbox.NETMF.Hardware.Netduino.PWM">
             <summary>Netduino PWM Wrapper</summary>
@@ -55,6 +57,22 @@
         </member>
         <member name="M:Toolbox.NETMF.Hardware.Netduino.ADC.Dispose">
             <summary>Disposes the ADC object</summary>
+        </member>
+        <member name="T:Toolbox.NETMF.Hardware.Netduino.Provider">
+            <summary>Class that installs the Hardware provider</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Netduino.Provider.#cctor">
+            <summary>Main method</summary>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Netduino.Provider._PWMMapper(Microsoft.SPOT.Hardware.Cpu.Pin)">
+            <summary>PWM Pin Mapper</summary>
+            <param name="pin">Pin</param>
+            <returns>IPWMPort-compatible class</returns>
+        </member>
+        <member name="M:Toolbox.NETMF.Hardware.Netduino.Provider._ADCMapper(Microsoft.SPOT.Hardware.Cpu.Pin)">
+            <summary>ADC Pin Mapper</summary>
+            <param name="pin">Pin</param>
+            <returns>IADCPort-compatible class</returns>
         </member>
     </members>
 </doc>

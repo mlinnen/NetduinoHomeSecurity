@@ -3,8 +3,8 @@ using Microsoft.SPOT;
 using MQTT;
 using Device.Core;
 using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
+using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace HomeSecurity.Device.Alarm
 {
@@ -45,11 +45,11 @@ namespace HomeSecurity.Device.Alarm
 
 		#region ctor
 
-		public AlarmController(IMqtt mqttService, ILogger logger,string houseCode, string locationCode)
+        public AlarmController(IMqtt mqttService, ILogger logger,string houseCode, string locationCode)
         {
             _logger = logger;
             _mqttService = mqttService;
-			_houseCode = houseCode;
+            _houseCode = houseCode;
             _locationCode = locationCode;
 
             // Setup the timer to wait forever

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeSecurity.Device.ExternalDoor", "HomeSecurity.Device.ExternalDoor\HomeSecurity.Device.ExternalDoor.csproj", "{DE38B796-CB0C-4968-8FD0-DCFB44D72166}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.Core_4.2", "..\Device.Core\Device.Core_4.2.csproj", "{377A991F-3DE3-49F4-B769-8EA984AB1810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Device.MQTT_4.2", "..\Device.MQTT\Device.MQTT_4.2.csproj", "{7E6C45C4-F755-4988-B288-5A3AF3A965A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE38B796-CB0C-4968-8FD0-DCFB44D72166}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{377A991F-3DE3-49F4-B769-8EA984AB1810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{377A991F-3DE3-49F4-B769-8EA984AB1810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377A991F-3DE3-49F4-B769-8EA984AB1810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{377A991F-3DE3-49F4-B769-8EA984AB1810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E6C45C4-F755-4988-B288-5A3AF3A965A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E6C45C4-F755-4988-B288-5A3AF3A965A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E6C45C4-F755-4988-B288-5A3AF3A965A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E6C45C4-F755-4988-B288-5A3AF3A965A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -4,7 +4,8 @@ using MQTT;
 using Device.Core;
 using System.Threading;
 using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware.NetduinoPlus;
+using Toolbox.NETMF.Hardware;
+using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace HomeSecurity.Device.ExternalDoor
 {

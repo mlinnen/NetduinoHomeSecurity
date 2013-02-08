@@ -3,8 +3,8 @@ using Microsoft.SPOT;
 using MQTT;
 using Device.Core;
 using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Threading;
+using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace HomeSecurity.Device.DoorBell
 {
