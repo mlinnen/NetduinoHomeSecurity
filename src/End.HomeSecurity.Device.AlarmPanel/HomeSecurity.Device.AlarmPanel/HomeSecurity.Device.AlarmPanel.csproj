@@ -43,15 +43,21 @@
     <Reference Include="Microsoft.SPOT.Native" />
     <Reference Include="Microsoft.SPOT.Net" />
     <Reference Include="SecretLabs.NETMF.Hardware" >
-      <HintPath>..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.dll</HintPath>
+      <HintPath>..\..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.dll</HintPath>
     </Reference>
     <Reference Include="SecretLabs.NETMF.Hardware.Netduino" >
-      <HintPath>..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.Netduino.dll</HintPath>
+      <HintPath>..\..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.Netduino.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Toolbox.NETMF.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Toolbox.NETMF.Hardware.AutoRepeatInputPort, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Toolbox.NETMF.Hardware.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Toolbox.NETMF.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\NetMFToolbox\4.2\Toolbox.NETMF.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Toolbox.NETMF.Hardware.AutoRepeatInputPort, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL" >
+      <HintPath>..\..\lib\NetMFToolbox\4.2\Toolbox.NETMF.Hardware.AutoRepeatInputPort.dll</HintPath>
+    </Reference>
+    <Reference Include="Toolbox.NETMF.Hardware.Core, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL" >
+      <HintPath>..\..\lib\NetMFToolbox\4.2\Toolbox.NETMF.Hardware.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Device.Core\Device.Core_4.2.csproj">
