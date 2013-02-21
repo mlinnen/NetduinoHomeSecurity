@@ -13,14 +13,14 @@ namespace HomeSecurity.Device.ExternalDoor
 	public class Program
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
-		// Change the following line to be your IP of your Netduino Device
-		//private static string _deviceGateway = "192.168.20.1";
+        // Change this if you need a different gateway
+        //private static string _deviceGateway = "192.168.20.1";
 		private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "djt";
 		// Change the IP of your device (this would be provided to you at the event)
 		//private static string _deviceIP = "192.168.20.129";
-		private static string _deviceIP = "192.168.1.8";
+		private static string _deviceIP = "192.168.1.10";
 		// END******* 
 
 		// Networking
