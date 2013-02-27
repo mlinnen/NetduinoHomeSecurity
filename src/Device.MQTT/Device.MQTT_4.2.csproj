@@ -62,14 +62,6 @@
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
     <Reference Include="Microsoft.SPOT.Net" />
-    <Reference Include="SecretLabs.NETMF.Hardware, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.dll</HintPath>
-    </Reference>
-    <Reference Include="SecretLabs.NETMF.Hardware.NetduinoPlus, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL" >
-      <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\lib\SecretLabs\4.2\SecretLabs.NETMF.Hardware.NetduinoPlus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
