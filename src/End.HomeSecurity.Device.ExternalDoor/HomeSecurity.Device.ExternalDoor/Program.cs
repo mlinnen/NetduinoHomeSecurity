@@ -30,7 +30,7 @@ namespace HomeSecurity.Device.ExternalDoor
 			_logger = new ConsoleLogger();
 			_logger.CurrentLogLevel = LogLevel.Debug;
 
-            // Delay 5 seconds to give the board a chance to be interupted by the IDE
+            // Delay 5 seconds to give the board a chance to be interrupted by the IDE
             Thread.Sleep(5000);
 
             // Begin Initializing network
