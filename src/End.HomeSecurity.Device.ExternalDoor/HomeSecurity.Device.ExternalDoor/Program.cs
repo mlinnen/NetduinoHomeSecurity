@@ -13,18 +13,11 @@ namespace HomeSecurity.Device.ExternalDoor
 	public class Program
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
-        // Change this if you need a different gateway
-        //private static string _deviceGateway = "192.168.20.1";
-		private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "djt";
-		// Change the IP of your device (this would be provided to you at the event)
-		//private static string _deviceIP = "192.168.20.129";
-		private static string _deviceIP = "192.168.1.10";
-		// END******* 
-
-		// Networking
-		private static string _deviceSubnet = "255.255.255.0";
+        // Change the location code of the device (front, back, or side)
+        private static string _locationCode = "front";
+        // END******* 
 
 		// MQTT Message Broker endpoint
 		private static string _mqttConnection = "tcp://168.62.48.21:1883";
@@ -41,13 +34,13 @@ namespace HomeSecurity.Device.ExternalDoor
             Thread.Sleep(5000);
 
             // Begin Initializing network
-			Network.InitStaticNetwork(_deviceIP, _deviceSubnet, _deviceGateway);
+			Network.InitDhcpNetwork();
 
 			// Begin Creating MQTT client
 			IMqtt client = MqttClientFactory.CreateClient(_mqttConnection, _mqttDeviceId, _logger);
 
 			// Begin doing some security related stuff
-			ExternalDoorController controller = new ExternalDoorController(client, _logger,"house1","front");
+            ExternalDoorController controller = new ExternalDoorController(client, _logger, "house1", _locationCode);
 			controller.Start();
 
 			Thread.Sleep(Timeout.Infinite);

@@ -14,16 +14,12 @@ namespace HomeSecurity.Device.Alarm
 	public class Program
 	{
 		// BEGIN******* YOU MUST EDIT THE FOLLOWING
-        // Change this if you need a different gateway
-        private static string _deviceGateway = "192.168.1.1";
 		// Change the following line to set your Unique ID for the MQTT Broker (use your initials)
 		private static string _mqttDeviceId = "mjl70";
-		// Change the IP of your device (this would be provided to you at the event)
-		private static string _deviceIP = "192.168.1.4";
-		// END******* 
 
-		// Networking
-		private static string _deviceSubnet = "255.255.255.0";
+        // Change the location code of the device (firstfloor or secondfloor)
+        private static string _locationCode = "firstfloor";
+        // END******* 
 
 		// MQTT Message Broker endpoint
         private static string _mqttConnection = "tcp://168.62.48.21:1883";
@@ -36,17 +32,17 @@ namespace HomeSecurity.Device.Alarm
 			_logger = new ConsoleLogger();
 			_logger.CurrentLogLevel = LogLevel.Debug;
 
-            // Delay 5 seconds to give the board a chance to be interupted by the IDE
+            // Delay 5 seconds to give the board a chance to be interrupted by the IDE
             Thread.Sleep(5000);
 
             // Begin Initializing network
-			Network.InitStaticNetwork(_deviceIP, _deviceSubnet, _deviceGateway);
+            Network.InitDhcpNetwork();
 
 			// Begin Creating MQTT client
 			IMqtt client = MqttClientFactory.CreateClient(_mqttConnection, _mqttDeviceId, _logger);
 
 			// Begin doing some sucurty related stuff
-			AlarmController controller = new AlarmController(client, _logger,"house1","firstfloor");
+            AlarmController controller = new AlarmController(client, _logger, "house1", _locationCode);
 			controller.Start();
 
 			Thread.Sleep(Timeout.Infinite);
