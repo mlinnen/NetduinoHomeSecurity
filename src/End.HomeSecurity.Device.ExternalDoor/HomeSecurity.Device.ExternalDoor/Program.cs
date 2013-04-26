@@ -19,8 +19,11 @@ namespace HomeSecurity.Device.ExternalDoor
         private static string _locationCode = "front";
         // END******* 
 
-		// MQTT Message Broker endpoint
-		private static string _mqttConnection = "tcp://168.62.48.21:1883";
+        // AZURE MQTT Message Broker endpoint
+        private static string _mqttConnection = "tcp://168.62.48.21:1883";
+
+        // LOCAL MQTT Message Broker endpoint
+        //private static string _mqttConnection = "tcp://192.168.1.100:1883";
 
 		private static ILogger _logger;
 

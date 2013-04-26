@@ -21,10 +21,12 @@ namespace HomeSecurity.Device.DoorBell
         private static string _locationCode = "firstfloor";
         // END******* 
 
-		// MQTT Message Broker endpoint
+        // AZURE MQTT Message Broker endpoint
         private static string _mqttConnection = "tcp://168.62.48.21:1883";
 
-		private static ILogger _logger;
+        // LOCAL MQTT Message Broker endpoint
+        //private static string _mqttConnection = "tcp://192.168.1.100:1883";
+        private static ILogger _logger;
 
 		public static void Main()
 		{
