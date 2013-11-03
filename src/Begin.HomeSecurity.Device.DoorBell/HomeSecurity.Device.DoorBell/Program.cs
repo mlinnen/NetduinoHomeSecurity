@@ -22,7 +22,7 @@ namespace HomeSecurity.Device.DoorBell
         // END******* 
 
         // AZURE MQTT Message Broker endpoint
-        private static string _mqttConnection = "tcp://168.62.48.21:1883";
+        private static string _mqttConnection = "tcp://168.62.48.65:1883";
 
         // LOCAL MQTT Message Broker endpoint
         //private static string _mqttConnection = "tcp://192.168.1.100:1883";
